@@ -117,6 +117,10 @@ function activateMockDB() {
       return this;
     }
 
+    select(fields) {
+      return this;
+    }
+
     // Helper to run query logic
     async exec() {
       let data = [...this.results];

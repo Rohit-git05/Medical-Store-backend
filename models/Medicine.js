@@ -84,14 +84,21 @@ const MedicineSchema = new mongoose.Schema({
     type: String,
     default: ''
   },
-  sideEffects: {
-    type: String,
-    default: ''
-  },
+  sideEffects: [{
+    type: String
+  }],
   dosage: {
     type: String,
     default: ''
   },
+  packSize: {
+    type: String,
+    required: [true, 'Pack size is required'],
+    default: '10 tablets'
+  },
+  precautions: [{
+    type: String
+  }],
   manufacturer: {
     type: String,
     default: ''

@@ -148,11 +148,21 @@ const importData = async () => {
     ]);
 
     console.log('Medicines created successfully!');
-    process.exit();
+    if (require.main === module) {
+      process.exit();
+    }
   } catch (error) {
     console.error('Error importing data:', error);
-    process.exit(1);
+    if (require.main === module) {
+      process.exit(1);
+    } else {
+      throw error;
+    }
   }
 };
 
-connectDB().then(importData);
+if (require.main === module) {
+  connectDB().then(importData);
+}
+
+module.exports = importData;

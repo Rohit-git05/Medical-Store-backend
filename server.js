@@ -8,7 +8,20 @@ const errorHandler = require('./middleware/error');
 const { apiLimiter, sanitizeInput } = require('./middleware/security');
 
 // Initialize database
-connectDB();
+connectDB().then(async () => {
+  try {
+    const User = require('./models/User');
+    const userCount = await User.countDocuments();
+    if (userCount === 0) {
+      console.log('Database is empty. Automatically running database seeder...');
+      const importData = require('./utils/seeder');
+      await importData();
+      console.log('Database seeded successfully.');
+    }
+  } catch (err) {
+    console.error('Error auto-seeding database:', err);
+  }
+});
 
 const app = express();
 

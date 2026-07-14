@@ -48,231 +48,222 @@ const importData = async () => {
 
     // 2. Create Categories
     const categories = await Category.create([
-      { name: 'Tablets', description: 'Oral compressed tablets' },
-      { name: 'Capsules', description: 'Gelatin shell capsules' },
-      { name: 'Syrups', description: 'Oral liquid solutions' },
-      { name: 'Injections', description: 'Intravenous solutions' },
-      { name: 'Vitamins', description: 'Nutritional health supplements' },
-      { name: 'Diabetes Care', description: 'Insulin and diabetes aids' },
-      { name: 'Ointments', description: 'Topical creams and ointments' }
+      { name: 'Appetizers', description: 'Quick bites and starters' },
+      { name: 'Mains', description: 'Full course entrees and mains' },
+      { name: 'Desserts', description: 'Sweet treats and dessert delights' },
+      { name: 'Beverages', description: 'Cold drinks and hot beverages' },
+      { name: 'Snacks', description: 'Light snacks and street food' }
     ]);
     console.log('Categories created...');
 
-    // 3. Create Brands
+    // 3. Create Brands (Cuisines)
     const brands = await Brand.create([
-      { name: 'Cipla', description: 'Cipla pharmaceuticals' },
-      { name: 'Sun Pharma', description: 'Sun pharmaceutical industries' },
-      { name: 'GSK', description: 'GlaxoSmithKline' },
-      { name: 'Abbott', description: 'Abbott laboratories' }
+      { name: 'Italian', description: 'Classic pizza, pasta, and gelato' },
+      { name: 'American', description: 'Burgers, fries, shakes, and wings' },
+      { name: 'Indian', description: 'Rich tandoori starters and curries' },
+      { name: 'Chinese', description: 'Wok-tossed noodles, rice, and dimsums' }
     ]);
-    console.log('Brands created...');
+    console.log('Brands/Cuisines created...');
 
-    // 4. Create Suppliers
+    // 4. Create Suppliers (Partner Restaurants)
     const suppliers = await Supplier.create([
       {
-        name: 'MedDistributors India',
-        contactEmail: 'orders@meddist.com',
+        name: 'The Food Bistro Group',
+        contactEmail: 'orders@foodbistro.com',
         contactPhone: '+91 9988776655',
-        address: '12 Industrial Area, Mumbai, India'
+        address: '12 Culinary Boulevard, food Court'
       }
     ]);
-    console.log('Suppliers created...');
+    console.log('Restaurants created...');
 
-    // 5. Create Medicines
+    // 5. Create Medicines (Menu Items)
     await Medicine.create([
       {
-        name: 'Paracetamol 650mg',
-        genericName: 'Paracetamol',
-        brand: brands[0]._id, // Cipla
-        category: categories[0]._id, // Tablets
-        batchNumber: 'B123-PA',
+        name: 'Margherita Pizza',
+        genericName: 'Italian Cheese Pizza',
+        brand: brands[0]._id, // Italian
+        category: categories[1]._id, // Mains
+        batchNumber: 'F101-MP',
         supplier: suppliers[0]._id,
-        purchasePrice: 10,
-        sellingPrice: 18,
-        MRP: 20,
-        discount: 10,
-        stock: 120,
-        minStock: 20,
+        purchasePrice: 120,
+        sellingPrice: 249,
+        MRP: 299,
+        discount: 16,
+        stock: 50,
+        minStock: 5,
         expiryDate: new Date('2027-12-31'),
         manufacturingDate: new Date('2025-01-01'),
-        description: 'Effective relief from fever and mild to moderate bodily pain.',
-        uses: 'Fever, headache, joint pain, toothache.',
+        description: 'Classic neapolitan style sourdough pizza topped with fresh tomato sauce, mozzarella cheese, and basil leaves.',
+        uses: 'Tomato sauce, fresh mozzarella, sweet basil, olive oil.',
         sideEffects: [
-          'Nausea or stomach upset',
-          'Allergic skin reactions in rare cases',
-          'Liver risk if recommended dose is exceeded'
+          'Gluten (Wheat)',
+          'Dairy (Cheese)',
+          'Lactose'
         ],
-        dosage: '1 tablet every 4-6 hours as required. Max 4g daily.',
-        manufacturer: 'Cipla Ltd.',
-        prescriptionRequired: false,
-        packSize: '10 Tablets (1 Strip)',
+        dosage: 'Serves 1-2 people (12 inches).',
+        manufacturer: 'Pizza Palace Kitchen',
+        prescriptionRequired: false, // OTC (No prescription)
+        packSize: '12 Inch Medium Pizza',
         precautions: [
-          'Do not take with other paracetamol-containing products',
-          'Avoid alcohol consumption while taking this medication',
-          'Consult doctor if you have kidney or liver issues'
+          'Best served hot and fresh',
+          'Contains milk products',
+          'Extra chili flakes and oregano available on request'
         ],
         images: [
-          'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&auto=format&fit=crop&q=60',
-          'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&auto=format&fit=crop&q=60'
+          'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500&auto=format&fit=crop&q=60',
+          'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&auto=format&fit=crop&q=60'
         ]
       },
       {
-        name: 'Amoxicillin 500mg',
-        genericName: 'Amoxicillin',
-        brand: brands[1]._id, // Sun Pharma
-        category: categories[1]._id, // Capsules
-        batchNumber: 'B456-AM',
+        name: 'Double Cheese Chicken Burger',
+        genericName: 'Cheeseburger',
+        brand: brands[1]._id, // American
+        category: categories[1]._id, // Mains
+        batchNumber: 'F102-CB',
         supplier: suppliers[0]._id,
-        purchasePrice: 40,
-        sellingPrice: 75,
-        MRP: 85,
-        discount: 11,
-        stock: 90,
-        minStock: 15,
+        purchasePrice: 80,
+        sellingPrice: 179,
+        MRP: 199,
+        discount: 10,
+        stock: 40,
+        minStock: 5,
         expiryDate: new Date('2027-08-31'),
         manufacturingDate: new Date('2025-03-01'),
-        description: 'Broad spectrum antibiotic used to treat bacterial infections.',
-        uses: 'Ear infections, throat infections, urinary tract infections.',
+        description: 'Juicy grilled chicken patty with cheddar cheese, lettuce, tomato, pickles, and our special house sauce on a toasted brioche bun.',
+        uses: 'Grilled chicken patty, double cheddar, lettuce, tomato, pickles, house sauce, brioche.',
         sideEffects: [
-          'Diarrhea or loose stools',
-          'Nausea and vomiting',
-          'Mild skin rashes or itching'
+          'Gluten (Brioche Bun)',
+          'Dairy (Cheese)',
+          'Sesame seeds'
         ],
-        dosage: 'Take 1 capsule 3 times daily or as prescribed by a physician.',
-        manufacturer: 'Sun Pharmaceuticals',
-        prescriptionRequired: true,
-        packSize: '10 Capsules',
+        dosage: 'Single serving portion with fresh French fries.',
+        manufacturer: 'Burger Bistro Kitchen',
+        prescriptionRequired: false,
+        packSize: '1 Burger + Fries',
         precautions: [
-          'Finish the entire course as prescribed by the doctor',
-          'Do not take if you have a history of penicillin allergy',
-          'Take with food to minimize gastrointestinal discomfort'
+          'Contains gluten and dairy products',
+          'Add bacon or extra cheese slice option available at checkout',
+          'May contain sesame seeds on the bun'
         ],
         images: [
-          'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=500&auto=format&fit=crop&q=60',
-          'https://images.unsplash.com/photo-1607619056574-7b8d304b3b33?w=500&auto=format&fit=crop&q=60'
+          'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&auto=format&fit=crop&q=60',
+          'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=500&auto=format&fit=crop&q=60'
         ]
       },
       {
-        name: 'Cough Out Syrup',
-        genericName: 'Dextromethorphan',
-        brand: brands[2]._id, // GSK
-        category: categories[2]._id, // Syrups
-        batchNumber: 'B789-CO',
+        name: 'Paneer Tikka Platter',
+        genericName: 'Tandoori Paneer Tikka',
+        brand: brands[2]._id, // Indian
+        category: categories[0]._id, // Appetizers
+        batchNumber: 'F103-PT',
         supplier: suppliers[0]._id,
-        purchasePrice: 30,
-        sellingPrice: 55,
-        MRP: 60,
-        discount: 8,
-        stock: 50,
-        minStock: 10,
+        purchasePrice: 90,
+        sellingPrice: 220,
+        MRP: 250,
+        discount: 12,
+        stock: 30,
+        minStock: 4,
         expiryDate: new Date('2027-06-30'),
         manufacturingDate: new Date('2025-02-01'),
-        description: 'Soothes dry cough and provides long lasting relief.',
-        uses: 'Dry cough, throat irritation.',
+        description: 'Spiced paneer cubes marinated in yogurt and tikka spices, chargrilled in a tandoor with onions and bell peppers. Served with mint chutney.',
+        uses: 'Paneer cubes, yogurt, tandoori tikka marinade, onion, bell pepper.',
         sideEffects: [
-          'Mild drowsiness or sleepiness',
-          'Dizziness or lightheadedness',
-          'Dry mouth or throat'
+          'Dairy (Yogurt/Paneer)',
+          'Lactose'
         ],
-        dosage: '10ml twice daily or as directed by a doctor.',
-        manufacturer: 'GSK India',
+        dosage: 'Serves 1-2 people (6 pieces).',
+        manufacturer: 'The Curry House Kitchen',
         prescriptionRequired: false,
-        packSize: '100ml Bottle',
+        packSize: '6 Pieces + Chutney',
         precautions: [
-          'Avoid driving or operating machinery after consumption',
-          'Avoid consuming alcohol while using this medicine',
-          'Keep out of reach of children under 6 years'
+          '100% Vegetarian and Gluten-free starter',
+          'Specify spice preferences: Mild, Medium, Hot',
+          'Contains dairy products'
         ],
         images: [
-          'https://images.unsplash.com/photo-1550572017-edd951b55104?w=500&auto=format&fit=crop&q=60',
-          'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?w=500&auto=format&fit=crop&q=60'
+          'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=500&auto=format&fit=crop&q=60',
+          'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=500&auto=format&fit=crop&q=60'
         ]
       },
       {
-        name: 'Multivitamin Formula',
-        genericName: 'Vitamins and Minerals',
-        brand: brands[3]._id, // Abbott
-        category: categories[4]._id, // Vitamins
-        batchNumber: 'B822-MV',
+        name: 'Vegetable Hakka Noodles',
+        genericName: 'Hakka Noodles',
+        brand: brands[3]._id, // Chinese
+        category: categories[1]._id, // Mains
+        batchNumber: 'F104-HN',
         supplier: suppliers[0]._id,
         purchasePrice: 60,
-        sellingPrice: 110,
-        MRP: 120,
-        discount: 8,
-        stock: 80,
-        minStock: 10,
+        sellingPrice: 149,
+        MRP: 169,
+        discount: 11,
+        stock: 45,
+        minStock: 5,
         expiryDate: new Date('2027-09-30'),
         manufacturingDate: new Date('2025-04-01'),
-        description: 'Daily nutritional supplement to boost immunity and energy.',
-        uses: 'Vitamin deficiency, fatigue, immunity boost.',
+        description: 'Wok-tossed noodles with shredded cabbage, carrots, bell peppers, spring onions, and a splash of soy sauce.',
+        uses: 'Noodles, soy sauce, cabbage, carrots, bell peppers, spring onions.',
         sideEffects: [
-          'Mild stomach upset on empty stomach',
-          'Unpleasant metallic taste in mouth',
-          'Temporary changes in urine color'
+          'Gluten (Noodles)',
+          'Soy',
+          'MSG'
         ],
-        dosage: '1 tablet daily after breakfast or lunch.',
-        manufacturer: 'Abbott Laboratories',
+        dosage: 'Standard portion size (Serves 1).',
+        manufacturer: 'Golden Dragon Kitchen',
         prescriptionRequired: false,
-        packSize: '30 Tablets (1 Bottle)',
+        packSize: '500g Container',
         precautions: [
-          'Take with a full glass of water and a meal',
-          'Do not exceed the recommended daily dose',
-          'Consult a physician if you are pregnant or breastfeeding'
+          'Contains soy sauce and gluten',
+          'Can be prepared without MSG on request',
+          'Tossed with garlic and onion'
         ],
         images: [
-          'https://images.unsplash.com/photo-1616671285420-7f2832c3f87b?w=500&auto=format&fit=crop&q=60',
-          'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=500&auto=format&fit=crop&q=60'
+          'https://images.unsplash.com/photo-1585032226651-759b368d7246?w=500&auto=format&fit=crop&q=60',
+          'https://images.unsplash.com/photo-1612927601601-6638404737ce?w=500&auto=format&fit=crop&q=60'
         ]
       },
       {
-        name: 'Hydrocortisone Cream 1%',
-        genericName: 'Hydrocortisone',
-        brand: brands[3]._id, // Abbott
-        category: categories[6]._id, // Ointments
-        batchNumber: 'B511-HC',
+        name: 'Chocolate Lava Cake',
+        genericName: 'Molten Lava Cake',
+        brand: brands[0]._id, // Italian/Desserts
+        category: categories[2]._id, // Desserts
+        batchNumber: 'F105-LC',
         supplier: suppliers[0]._id,
-        purchasePrice: 20,
-        sellingPrice: 38,
-        MRP: 42,
-        discount: 9,
-        stock: 60,
-        minStock: 12,
+        purchasePrice: 35,
+        sellingPrice: 89,
+        MRP: 99,
+        discount: 10,
+        stock: 25,
+        minStock: 3,
         expiryDate: new Date('2027-05-31'),
         manufacturingDate: new Date('2025-05-01'),
-        description: 'Topical steroid cream for relief of itching and skin inflammation.',
-        uses: 'Eczema, insect bites, mild rashes.',
+        description: 'Warm and decadent chocolate cake filled with a gooey, molten dark chocolate center. Served warm.',
+        uses: 'Cocoa powder, dark chocolate, flour, butter, sugar.',
         sideEffects: [
-          'Mild burning or stinging at application site',
-          'Dryness or peeling of skin',
-          'Skin thinning (if used long-term)'
+          'Dairy (Butter)',
+          'Gluten (Flour)',
+          'Eggs'
         ],
-        dosage: 'Apply a thin film to the affected area 2 to 3 times daily.',
-        manufacturer: 'Abbott Laboratories',
+        dosage: 'Single serving dessert cake.',
+        manufacturer: 'Bakehouse Kitchen',
         prescriptionRequired: false,
-        packSize: '15g Tube',
+        packSize: '1 Cake Cup',
         precautions: [
-          'For external use only; do not ingest',
-          'Do not use on open wounds or infected skin',
-          'Avoid contact with eyes and mucous membranes'
+          'Contains eggs and gluten',
+          'Microwave for 10-15 seconds for hot molten lava overflow',
+          'Best paired with vanilla ice cream'
         ],
         images: [
-          'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=500&auto=format&fit=crop&q=60',
-          'https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?w=500&auto=format&fit=crop&q=60'
+          'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=500&auto=format&fit=crop&q=60',
+          'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=500&auto=format&fit=crop&q=60'
         ]
       }
     ]);
 
-    console.log('Medicines created successfully!');
-    if (require.main === module) {
-      process.exit();
-    }
+    console.log('Food dishes created successfully!');
+    process.exit();
   } catch (error) {
     console.error('Error importing data:', error);
-    if (require.main === module) {
-      process.exit(1);
-    } else {
-      throw error;
-    }
+    process.exit(1);
   }
 };
 
